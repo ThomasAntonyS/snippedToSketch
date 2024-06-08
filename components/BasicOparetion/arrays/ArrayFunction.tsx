@@ -31,9 +31,9 @@ export default function ArrayFunction() {
     const newNumbers = [];
     while (newNumbers.length < createNumber) {
       let randomNum = Math.round(Math.random() * 10);
-      // if (!noOfArrays.includes(randomNum)) {
-      // }
-      newNumbers.push(randomNum);
+      if (!noOfArrays.includes(randomNum)) {
+        newNumbers.push(randomNum);
+      }
     }
     setNoOfArrays(newNumbers);
     setDefaultText(false);
@@ -59,6 +59,7 @@ export default function ArrayFunction() {
     onAppendButton();
   };
 
+  
   const onCreateButton = contextSafe(() => {
     generateDefaultArray();
     setTimeout(() => {
@@ -69,6 +70,7 @@ export default function ArrayFunction() {
         visibility: 0,
         ease: "back.inOut",
         duration: 1,
+        
       });
     }, 10);
   });

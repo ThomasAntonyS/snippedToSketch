@@ -1,11 +1,16 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(useGSAP);
+
+interface Array{
+  id: string;
+  value: number;
+}
 
 const boxClassVariable =
   "flex h-14 w-14 items-center justify-center rounded-lg bg-rose-500 text-xl font-medium drop-shadow-lg ";
@@ -16,7 +21,9 @@ export default function ArrayFunction() {
   const [defaultText, setDefaultText] = useState(true);
   const container = useRef<HTMLDivElement>(null);
   const { contextSafe } = useGSAP({ scope: container });
-  const [noOfArrays, setNoOfArrays] = useState<Number[]>([]);
+  const [mainArray, setMainArray] = useState<Array[]>([]);
+  const arrayLength = mainArray.length;
+
 
   const createInputhander = (event: any) => {
     event.preventDefault();
@@ -29,51 +36,71 @@ export default function ArrayFunction() {
 
   const generateDefaultArray = () => {
     const newNumbers = [];
-    while (newNumbers.length < createNumber) {
-      let randomNum = Math.round(Math.random() * 10);
-      if (!noOfArrays.includes(randomNum)) {
-        newNumbers.push(randomNum);
-      }
+    for (let i =0;i< createNumber;i++) {
+      let randomNum = Math.round(Math.random() * 100);
+      newNumbers.push({
+        id: randomNum.toString()+i.toString(),
+        value:randomNum
+      })
     }
-    setNoOfArrays(newNumbers);
+    setMainArray(newNumbers);
     setDefaultText(false);
   };
 
   const appendOneElement = () => {
-    setNoOfArrays((prev) => [...prev, appendNumber]);
+    
+    setMainArray((prev) => [...prev, {
+      value: appendNumber,
+      id: appendNumber.toString()+arrayLength.toString()
+    }]);
     setDefaultText(false);
-
-    const onAppendButton = contextSafe(() => {
-      setTimeout(() => {
-        gsap.from(`.box${appendNumber}`, {
-          x: 100,
-          stagger: 0.1,
-          visibility: 0,
-          ease: "back.Out",
-          duration: 1,
-          delay: 0.1,
-        });
-      }, 10);
-    });
-
     onAppendButton();
   };
 
+  const onAppendButton = contextSafe(() => {
+    setTimeout(() => {
+      gsap.fromTo(`.box${appendNumber}${arrayLength}`, 
+        {
+        x: 100,
+        stagger: 0.1,
+        visibility: 0,
+        ease: "back.Out",
+        duration: 1,
+        delay: 0.1,
+        },{
+          x: 0,
+          scale: 1,
+          visibility: 1,
+          duration: 1,
+          ease: "back.Out",
+      });
+    }, 10);
+
+
+  });
   
   const onCreateButton = contextSafe(() => {
     generateDefaultArray();
     setTimeout(() => {
-      gsap.from(".box", {
+      gsap.fromTo(".box", {
         y: -50,
         stagger: 0.2,
         scale: 0,
         visibility: 0,
         ease: "back.inOut",
         duration: 1,
-        
+      },{
+        y: 0,
+        stagger: 0.2,
+        scale: 1,
+        visibility: 1,
+        ease: "back.inOut",
+        duration: 1,
       });
     }, 10);
   });
+
+
 
   return (
     <>
@@ -87,11 +114,11 @@ export default function ArrayFunction() {
           </span>
         )}
         <div className="flex">
-          {noOfArrays.map((ele, i) => (
+          {mainArray.map((ele, i) => (
             <div key={i}>
               <div className="border-2 border-black p-1">
-                <div className={boxClassVariable + " box " + "box" + ele}>
-                  {ele.toString()}
+                <div className={boxClassVariable + " box " + "box" + ele.id}>
+                  {ele.value.toString()}
                 </div>
               </div>
                 <div className="text-lg font-medium text-center">{i}</div>
@@ -112,7 +139,8 @@ export default function ArrayFunction() {
             <span className="text-md w-[60%] font-medium">
               To Create An Array Of Length{" "}
               <input
-                className="w-5 p-1"
+                className="w-10 p-1"
+                type="number"
                 onChange={createInputhander}
                 value={createNumber}
               />{" "}
@@ -129,7 +157,8 @@ export default function ArrayFunction() {
             <span className="text-md w-[60%] font-medium">
               To Create An Array Of Length{" "}
               <input
-                className="w-5 p-1"
+                className="w-10 p-1"
+                type="number"
                 onChange={appendInputhander}
                 value={appendNumber}
               />{" "}
@@ -141,16 +170,23 @@ export default function ArrayFunction() {
               className="w-[5rem] hover:scale-100"
               onClick={onCreateButton}
             >
-              Create
+              Insert
             </Button>
             <span className="text-md w-[60%] font-medium">
-              To Create An Array Of Length{" "}
+              To Insert New Value has
               <input
-                className="w-5 p-1"
+                className="w-10 p-1"
+                type="number"
                 onChange={createInputhander}
                 value={createNumber}
               />{" "}
-              Numbers
+              To Index number 
+              <input
+                className="w-10 p-1"
+                type="number"
+                onChange={createInputhander}
+                value={createNumber}
+              />{" "}
             </span>
           </div>
           <div className="flex flex-col items-center gap-3">
@@ -163,7 +199,8 @@ export default function ArrayFunction() {
             <span className="text-md w-[60%] font-medium">
               To Create An Array Of Length{" "}
               <input
-                className="w-5 p-1"
+                className="w-10 p-1"
+                type="number"
                 onChange={createInputhander}
                 value={createNumber}
               />{" "}

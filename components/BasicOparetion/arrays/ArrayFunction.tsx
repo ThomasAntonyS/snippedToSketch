@@ -15,18 +15,20 @@ interface Array{
 const boxClassVariable =
   "flex h-14 w-14 items-center justify-center rounded-lg bg-rose-500 text-xl font-medium drop-shadow-lg ";
 
+const welomeText = "Please Click Any Operation to view the Arrays"
+
 export default function ArrayFunction() {
 
   const [insertNumberIndex, setInsertNumberIndex] = useState("4");
   const [insertNumber, setInsertNumber] = useState("24");
   const [createNumber, setCreateNumber] = useState(5);
   const [appendNumber, setAppendNumber] = useState(6);
-  const [defaultText, setDefaultText] = useState(true);
+  const [defaultText, setDefaultText] = useState<boolean | string>(welomeText);
   const container = useRef<HTMLDivElement>(null);
   const { contextSafe } = useGSAP({ scope: container });
   const [mainArray, setMainArray] = useState<Array[]>([]);
   const arrayLength = mainArray.length;
-
+  
 
   const createInputhander = (event: any) => {
     event.preventDefault();
@@ -43,7 +45,7 @@ export default function ArrayFunction() {
     for (let i =0;i< createNumber;i++) {
       let randomNum = Math.round(Math.random() * 100);
       newNumbers.push({
-        id: randomNum.toString()+i.toString(),
+        id: i.toString(),
         value:randomNum
       })
     }
@@ -54,37 +56,83 @@ export default function ArrayFunction() {
   const appendOneElement = () => {
     setMainArray((prev) => [...prev, {
       value: appendNumber,
-      id: appendNumber.toString()+arrayLength.toString()
+      id: arrayLength.toString()
     }]);
     setDefaultText(false);
   };
 
   const insertToIndex = () => {
+    if(!insertNumberIndex || Number(insertNumberIndex) < 0 || Number(insertNumberIndex) > mainArray.length){
+      setDefaultText("Please enter a valid index number")
+      return;
+    }
     let lastInx = arrayLength;
     let newArray = [...mainArray]; // copy of the mainArray
-
+    newArray.push({
+      id: "",
+      value: 0
+    })
      while (Number(insertNumberIndex) < lastInx) {
-      newArray[lastInx] = newArray[lastInx - 1];
+
+      newArray[lastInx].id = lastInx.toString();
+      newArray[lastInx].value = newArray[lastInx - 1].value;
       lastInx--;
-    }
-
-    newArray[lastInx] = {
-      id: insertNumber + insertNumberIndex,
-      value: Number(insertNumber),
-    };
-
-    setMainArray(newArray)
-    setDefaultText(false);
+      
+      }
+      
+      newArray[lastInx] = {
+        id: insertNumberIndex,
+        value: Number(insertNumber),
+        };
+        
+      setMainArray(newArray)
+      setDefaultText(false);
+      insertButtomAnimate(insertNumberIndex)
     }
     
 
+    const insertButtomAnimate = (id:string)=>{
+      let timeline = gsap.timeline()
+      for (let i = 0; i < Number(id); i++) {
+        timeline.fromTo(
+          `.box${i}`,
+          { y: 0, ease: "back.out" },
+          { y: 80, ease: "back.out", duration: 0.5 },
+        )
+      }
+  
+      timeline.fromTo(`.box${id}`, 
+          {
+          x: -100 * Number(id),
+          visibility: 0,
+          ease: "back.Out",
+          duration: 1,
+          delay: 0.1,
+          },{
+            x: 0,
+            scale: 1,
+            visibility: 1,
+            duration: 1,
+            ease: "back.Out",
+        },">");
+
+        for (let i = 0; i < Number(id); i++) {
+          timeline.fromTo(
+            `.box${i}`,
+            { y: 8, ease: "back.out" , duration: 1 },
+            { y: 0, ease: "back.out", duration: 1 },
+          )
+        }
+        }
+
+
+
   const onAppendButton = contextSafe(() => {
     appendOneElement()
-    setTimeout(() => {
-      gsap.fromTo(`.box${appendNumber}${arrayLength}`, 
+    setTimeout(() => { 
+      gsap.fromTo(`.box${arrayLength}`, 
         {
         x: 100,
-        stagger: 0.1,
         visibility: 0,
         ease: "back.Out",
         duration: 1,
@@ -132,10 +180,10 @@ export default function ArrayFunction() {
       >
         {defaultText && (
           <span className="text-2xl font-medium">
-            Please Click Any Operation to view the Arrays
+            {defaultText}
           </span>
         )}
-        <div className="flex" ref={container}>
+        <div className="flex" >
           {mainArray.map((ele, i) => (
             <div key={i}>
               <div className="border-2 border-black p-1">

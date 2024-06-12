@@ -10,13 +10,13 @@ export default function Hero() {
       <p className="text-5xl font-medium mb-[20rem]">Snippet2Sketch</p>
       <div className="flex w-full bg-white text-3xl font-thin text-black opacity-[0.3]">
         <Link
-          href="#"
+          href="/arrays"
           className="flex h-full w-full items-center justify-around border-[1px] border-black py-5"
         >
           <p>ARRAY</p> <GoArrowUpRight size={"3rem"} />
         </Link>
         <Link
-          href="#"
+          href="/stacks"
           className="flex h-full w-full items-center justify-around border-[1px] border-black py-5"
         >
           <p>STACK</p> <GoArrowUpRight size={"3rem"} />
@@ -28,7 +28,7 @@ export default function Hero() {
           <p>QUEUE</p> <GoArrowUpRight size={"3rem"} />
         </Link>
         <Link
-          href="#"
+          href="/linkedList"
           className="flex h-full w-full items-center justify-around border-[1px] border-black py-5"
         >
           <p>LINKED LIST</p> <GoArrowUpRight size={"3rem"} />

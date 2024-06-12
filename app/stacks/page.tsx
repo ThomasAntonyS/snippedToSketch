@@ -1,4 +1,4 @@
-import StackFunction from '@/components/BasicOparetion/arrays/StackFunction'
+import StackFunction from '@/components/BasicOparetion/stack/StackFunction'
 import React from 'react'
 
 const page = () => {

@@ -19,6 +19,8 @@ const welomeText = "Please Click Any Operation to view the Arrays"
 
 export default function ArrayFunction() {
 
+  const [swapIndexFirst, setSwapIndexFirst] = useState("1");
+  const [swapIndexSecond, setSwapIndexSecond] = useState("3");
   const [insertNumberIndex, setInsertNumberIndex] = useState("4");
   const [insertNumber, setInsertNumber] = useState("24");
   const [createNumber, setCreateNumber] = useState(5);
@@ -62,7 +64,9 @@ export default function ArrayFunction() {
   };
 
   const insertToIndex = () => {
-    if(!insertNumberIndex || Number(insertNumberIndex) < 0 || Number(insertNumberIndex) > mainArray.length){
+    if(!insertNumberIndex || 
+      Number(insertNumberIndex) < 0 || 
+      Number(insertNumberIndex) > mainArray.length){
       setDefaultText("Please enter a valid index number")
       return;
     }
@@ -72,12 +76,11 @@ export default function ArrayFunction() {
       id: "",
       value: 0
     })
-     while (Number(insertNumberIndex) < lastInx) {
 
+     while (Number(insertNumberIndex) < lastInx) {
       newArray[lastInx].id = lastInx.toString();
       newArray[lastInx].value = newArray[lastInx - 1].value;
       lastInx--;
-      
       }
       
       newArray[lastInx] = {
@@ -89,6 +92,37 @@ export default function ArrayFunction() {
       setDefaultText(false);
       insertButtomAnimate(insertNumberIndex)
     }
+
+
+    const swapNumberByIndex = ()=>{
+      let timeline = gsap.timeline()
+      if(!swapIndexFirst || 
+        !swapIndexSecond || 
+        Number(swapIndexFirst) < 0 || 
+        Number(swapIndexSecond) < 0 || 
+        Number(swapIndexFirst) > mainArray.length ||
+        Number(swapIndexSecond) > mainArray.length){
+        setDefaultText("Please enter a valid index number")
+        return;
+      }
+
+      let newArray = [...mainArray]; // copy of the mainArray
+      let temp = newArray[Number(swapIndexFirst)];
+      newArray[Number(swapIndexFirst)] = newArray[Number(swapIndexSecond)];
+      newArray[Number(swapIndexSecond)] = temp;
+      
+
+      if(swapIndexFirst < swapIndexSecond){
+        gsap.fromTo(`.box${swapIndexFirst}`,
+          { y:0,duration:1,ease:"back.out"},
+          {y:-50,duration:1,ease:"back.out"})
+          setMainArray(newArray);
+      }
+      if(swapIndexFirst > swapIndexSecond){}
+
+      setMainArray(newArray);
+    }
+
     
 
     const insertButtomAnimate = (id:string)=>{
@@ -119,11 +153,11 @@ export default function ArrayFunction() {
         for (let i = 0; i < Number(id); i++) {
           timeline.fromTo(
             `.box${i}`,
-            { y: 8, ease: "back.out" , duration: 1 },
-            { y: 0, ease: "back.out", duration: 1 },
+            { y: 7, ease: "back.out" , duration: 0.5 },
+            { y: 0, ease: "back.out", duration: 0.5 },
           )
         }
-        }
+    }
 
 
 
@@ -188,25 +222,24 @@ export default function ArrayFunction() {
             <div key={i}>
               <div className="border-2 border-black p-1">
                 <div className={boxClassVariable + " box " + "box" + ele.id}>
-                  {ele.value.toString()}
+                  {ele.value}
                 </div>
               </div>
                 <div className="text-lg font-medium text-center">{i}</div>
             </div>
           ))}
         </div>
-
       </section>
-      <section className="bg-orange-300 p-2">
+      <section className="bg-orange-300 py-2">
         <div className="flex justify-evenly">
           <div className="flex flex-col items-center gap-3">
             <Button
-              className="w-[5rem] hover:scale-100"
+              className="w-[5rem] hover:scale-100 active:scale-95 duration-100 transition"
               onClick={onCreateButton}
             >
               Create
             </Button>
-            <span className="text-md w-[60%] font-medium">
+            <span className="text-sm w-[80%] font-medium">
               To Create An Array Of Length{" "}
               <input
                 className="w-10 p-1"
@@ -219,13 +252,13 @@ export default function ArrayFunction() {
           </div>
           <div className="flex flex-col items-center gap-3">
             <Button
-              className="w-[5rem] hover:scale-100"
+              className="w-[5rem] hover:scale-100 active:scale-95 duration-100 transition"
               onClick={onAppendButton}
             >
               Append
             </Button>
-            <span className="text-md w-[60%] font-medium">
-              To Create An Array Of Length{" "}
+            <span className="text-sm w-[80%] font-medium">
+              To Add an element to end of the array of {" "}
               <input
                 className="w-10 p-1"
                 type="number"
@@ -237,20 +270,20 @@ export default function ArrayFunction() {
           </div>
           <div className="flex flex-col items-center gap-3">
             <Button
-              className="w-[5rem] hover:scale-100"
+              className="w-[5rem] hover:scale-100 active:scale-95 duration-100 transition"
               onClick={insertToIndex}
             >
               Insert
             </Button>
-            <span className="text-md w-[60%] font-medium">
-              To Insert New Value has
+            <span className="text-sm w-[80%] font-medium">
+              To Insert New Value has {" "}
               <input
                 className="w-12 p-1"
                 type="number"
                 onChange={(e)=>setInsertNumber(e.target.value)}
                 value={insertNumber}
               />{" "}
-              To Index number 
+              To Index number {" "}
               <input
                 className="w-10 p-1"
                 type="number"
@@ -261,12 +294,36 @@ export default function ArrayFunction() {
           </div>
           <div className="flex flex-col items-center gap-3">
             <Button
-              className="w-[5rem] hover:scale-100"
+              className="w-[5rem] hover:scale-100 active:scale-95 duration-100 transition"
+              onClick={swapNumberByIndex}
+            >
+              Swap
+            </Button>
+            <span className="text-sm w-[80%] font-medium">
+              To Swap Two element by Index of {" "}
+              <input
+                className="w-12 p-1"
+                type="number"
+                onChange={(e)=>setSwapIndexSecond(e.target.value)}
+                value={swapIndexSecond}
+              />{" "}
+              And By Index of {" "}
+              <input
+                className="w-10 p-1"
+                type="number"
+                onChange={(e)=>setSwapIndexFirst(e.target.value)}
+                value={swapIndexFirst}
+              />{" "}
+            </span>
+          </div>
+          <div className="flex flex-col items-center gap-3">
+            <Button
+              className="w-[5rem] hover:scale-100 active:scale-95 duration-100 transition"
               onClick={onCreateButton}
             >
-              Create
+              Remove
             </Button>
-            <span className="text-md w-[60%] font-medium">
+            <span className="text-sm w-[80%] font-medium">
               To Create An Array Of Length{" "}
               <input
                 className="w-10 p-1"

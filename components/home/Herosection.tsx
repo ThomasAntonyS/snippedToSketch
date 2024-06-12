@@ -4,6 +4,9 @@ import Navbar from "./Navbar";
 import { GoArrowUpRight } from "react-icons/go";
 
 export default function Hero() {
+  
+
+
   return (
     <section className="flex min-h-screen flex-col items-center justify-between overflow-hidden bg-black text-white">
       <Navbar />
@@ -11,27 +14,27 @@ export default function Hero() {
       <div className="flex w-full bg-white text-3xl font-thin text-black opacity-[0.3]">
         <Link
           href="/arrays"
-          className="flex h-full w-full items-center justify-around border-[1px] border-black py-5"
+          className="flex h-full w-full items-center justify-around border-[1px] border-black py-2"
         >
-          <p>ARRAY</p> <GoArrowUpRight size={"3rem"} />
+          <p>Array</p> <GoArrowUpRight size={"3rem"} className="ml-24"/>
         </Link>
         <Link
           href="/stacks"
-          className="flex h-full w-full items-center justify-around border-[1px] border-black py-5"
+          className="flex h-full w-full items-center justify-around border-[1px] border-black py-2"
         >
-          <p>STACK</p> <GoArrowUpRight size={"3rem"} />
+          <p>Stack</p> <GoArrowUpRight size={"3rem"} className="ml-24"/>
         </Link>
         <Link
           href="#"
-          className="flex h-full w-full items-center justify-around border-[1px] border-black py-5"
+          className="flex h-full w-full items-center justify-around border-[1px] border-black py-2"
         >
-          <p>QUEUE</p> <GoArrowUpRight size={"3rem"} />
+          <p>Queue</p> <GoArrowUpRight size={"3rem"} className="ml-24"/>
         </Link>
         <Link
           href="/linkedList"
-          className="flex h-full w-full items-center justify-around border-[1px] border-black py-5"
+          className="flex h-full w-full items-center justify-around border-[1px] border-black py-2"
         >
-          <p>LINKED LIST</p> <GoArrowUpRight size={"3rem"} />
+          <p>Linked List</p> <GoArrowUpRight size={"3rem"} className="ml-24"/>
         </Link>
       </div>
     </section>

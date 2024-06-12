@@ -4,7 +4,7 @@ import "./globals.css";
 
 const inter = Righteous({
   subsets: ["latin"],
-  weight: "400"
+  weight: ["400"]
 });
 
 export const metadata: Metadata = {

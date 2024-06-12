@@ -70,27 +70,9 @@
   }
 
 
-.Hero_Section{
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-}
-.Navbar{
-  width: max-content;
-  position: absolute;
-  display: flex;
-  translate: (-50%,-50%);
-  left: 35%;
-  top: 4%;
-  border-radius: 40px;
 
-  #navigation_links{
-    font-size: 1.1rem;
-    border-radius: 50px;
-  }
-}
-.DataStructure_Navigator{
+/* .DataStructure_Navigator{
   width: 100vw;
   height: 8vh;
   background-color: rgba(255, 255, 255, 0.4);
-}
+} */

@@ -1,39 +1,39 @@
 import Link from "next/link";
 import React from "react";
 import Navbar from "./Navbar";
+import { GoArrowUpRight } from "react-icons/go";
 
 export default function Hero() {
   return (
-    <section className="Hero_Section bg-black text-white">
-      <div className="Navbar flex h-max border-2 border-green-400">
+    <section className="flex min-h-screen flex-col items-center justify-between overflow-hidden bg-black text-white">
+      <Navbar />
+      <p className="text-5xl font-medium mb-[20rem]">Snippet2Sketch</p>
+      <div className="flex w-full bg-white text-3xl font-thin text-black opacity-[0.3]">
         <Link
           href="#"
-          id="navigation_links"
-          className="mx-7 my-3 px-2 py-1 font-bold"
+          className="flex h-full w-full items-center justify-around border-[1px] border-black py-5"
         >
-          Home
+          <p>ARRAY</p> <GoArrowUpRight size={"3rem"} />
         </Link>
         <Link
           href="#"
-          id="navigation_links"
-          className="mx-7 my-3 px-2 py-1 font-bold"
+          className="flex h-full w-full items-center justify-around border-[1px] border-black py-5"
         >
-          Sketch
+          <p>STACK</p> <GoArrowUpRight size={"3rem"} />
         </Link>
         <Link
           href="#"
-          id="navigation_links"
-          className="mx-7 my-3 rounded border-2 border-green-400 bg-green-400 px-8 py-1 font-bold"
+          className="flex h-full w-full items-center justify-around border-[1px] border-black py-5"
         >
-          About Us
+          <p>QUEUE</p> <GoArrowUpRight size={"3rem"} />
+        </Link>
+        <Link
+          href="#"
+          className="flex h-full w-full items-center justify-around border-[1px] border-black py-5"
+        >
+          <p>LINKED LIST</p> <GoArrowUpRight size={"3rem"} />
         </Link>
       </div>
-
-      <p className="absolute left-1/2 top-1/3 -translate-x-1/2 -translate-y-1/2 text-6xl font-bold">
-        Snippet2Sketch
-      </p>
-
-      <Navbar />
     </section>
   );
 }

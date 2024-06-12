@@ -1,54 +1,36 @@
 import Link from "next/link";
-import array from "../public/C-Arrays.jpg";
-import stack from "../public/Stack.png";
-import linkedList from "../public/Linked-List.png";
-import Image from "next/image";
+
 export default function Home() {
   return (
-    <main className="min-h-screen bg-slate-500">
-      <section className="flex h-80 items-center justify-center bg-slate-200">
-        <h1 className="text-4xl font-bold text-blue-600">
-          This is Babith&apos;s website
-        </h1>
-      </section>
-      <section className="px-5 flex gap-5">
-        <div className=" h-[18rem] w-[18rem] -translate-y-20 rounded-md border-2 border-red-400 bg-slate-200 drop-shadow-xl">
-          <Link href={"/arrays"}>
-            <div className="">
-              <Image
-                src={array}
-                alt="arrays"
-                className="w-50 h-60 object-cover"
-              />
-            </div>
-            <p className="text-center text-xl font-bold">Arrays</p>
-          </Link>
+    <>
+      {/* ------------------------------- Hero Section  ------------------------------- */}
+      <div className="Hero_Section bg-black text-white">
+        <div className="Navbar flex h-max border-2 border-green-400">
+          <Link href='#' id="navigation_links" className=" my-3 mx-7 font-bold px-2 py-1">Home</Link>
+          <Link href='#' id="navigation_links" className=" my-3 mx-7 font-bold px-2 py-1">Sketch</Link>
+          <Link href='#' id="navigation_links" className=" my-3 mx-7 font-bold px-8 border-2 border-green-400 rounded py-1 bg-green-400">About Us</Link>
         </div>
-        <div className=" h-[18rem] w-[18rem] -translate-y-20 rounded-md border-2 border-red-400 bg-slate-200 drop-shadow-xl">
-          <Link href={"/stacks"}>
-            <div className="">
-              <Image
-                src={stack}
-                alt="arrays"
-                className="w-50 h-60 object-cover"
-              />
-            </div>
-            <p className="text-center text-xl font-bold">Stacks</p>
-          </Link>
+
+        <p className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 font-bold text-6xl">Snippet2Sketch</p>
+
+        <div className="DataStructure_Navigator absolute bottom-0 flex justify-evenly items-center text-black">
+          <Link href='#' id="DataStructure_links" >ARRAY</Link>
+          <Link href='#' id="DataStructure_links">STACK</Link>
+          <Link href='#' id="DataStructure_links">QUEUE</Link>
+          <Link href='#' id="DataStructure_links">LINKED LIST</Link>
         </div>
-        <div className=" h-[18rem] w-[18rem] -translate-y-20 rounded-md border-2 border-red-400 bg-slate-200 drop-shadow-xl">
-          <Link href={"/linkedList"}>
-            <div className="">
-              <Image
-                src={linkedList}
-                alt="arrays"
-                className="w-50 h-60 object-cover"
-              />
-            </div>
-            <p className="text-center text-xl font-bold">linkedList</p>
-          </Link>
-        </div>
-      </section>
-    </main>
+      </div>
+
+
+      {/* ------------------------------- AboutUs Section  ------------------------------- */}
+      <div className="AboutUs_Section">
+
+      </div>
+
+      {/* ------------------------------- Visualize Section  ------------------------------- */}
+      <div className="Visualize_Section">
+
+      </div>
+    </>
   );
 }

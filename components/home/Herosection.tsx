@@ -14,7 +14,7 @@ export default function Hero() {
   return (
     <section className="flex min-h-screen flex-col items-center overflow-hidden bg-black text-white relative">
       <Navbar />
-      <p className="text-7xl font-medium absolute left-[50%] top-[20%] translate-x-[-50%]">Snippet2Sketch</p>
+      <p className="text-7xl font-medium absolute left-[50%] top-[25%] translate-x-[-50%]">Snippet2Sketch</p>
       <div className="relative h-[87vh] w-full overflow-hidden ">
       
       <Cube

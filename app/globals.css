@@ -71,8 +71,8 @@
 
 
 
-/* .DataStructure_Navigator{
-  width: 100vw;
-  height: 8vh;
-  background-color: rgba(255, 255, 255, 0.4);
-} */
+.midcudebox:hover{
+  transform: translateY(700px);
+  animation-duration: 5000ms;
+  animation-timing-function: ease-in-out;
+}

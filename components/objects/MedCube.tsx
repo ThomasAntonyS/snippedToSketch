@@ -63,8 +63,8 @@ export default function MedCube({
   }, []);
 
   return (
-    <div ref={containerRef}>
-      <div className={`absolute ${bottom} ${wtop} ${left} ${right} midBox bg-white `}>
+    <div ref={containerRef} className="midcudebox">
+      <div className={`absolute ${bottom} ${wtop} ${left} ${right} midBox `}>
         <div
           className={
             "absolute left-[-2.85rem] top-[-1.4rem] translate-x-[42px] translate-y-[-7px] rotate-[150deg] skew-x-[30deg] skew-y-[0deg] border-[3px] border-b-[4px] border-r-[4px] border-solid border-black bg-[#00FF9B] " +

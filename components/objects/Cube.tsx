@@ -74,7 +74,7 @@ export default function Cube({
   }, []);
 
   return (
-    <div ref={containerRef}>
+    <div ref={containerRef} className="midcudebox">
       <div className={`absolute ${bottom} ${wtop} ${left} ${right} box`}>
         <div
           className={

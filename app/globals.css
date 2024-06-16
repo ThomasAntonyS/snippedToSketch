@@ -71,8 +71,3 @@
 
 
 
-.midcudebox:hover{
-  transform: translateY(700px);
-  animation-duration: 5000ms;
-  animation-timing-function: ease-in-out;
-}

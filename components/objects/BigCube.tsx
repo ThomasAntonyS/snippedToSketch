@@ -64,7 +64,7 @@ export default function BigCube({
 
 
   return (
-    <div ref={containerRef} className="midcudebox">
+    <div ref={containerRef}>
     <div
       className={`Bigbox absolute ${bottom} ${wtop} ${left} ${right} `
       }

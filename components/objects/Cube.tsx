@@ -27,35 +27,51 @@ export default function Cube({
   right,
 }: Bar) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const { contextSafe } = useGSAP({ scope: containerRef }); 
+  const { contextSafe } = useGSAP({ scope: containerRef });
+
   useGSAP(
     () => {
-      gsap.from(".box", {
-        y:50,
-        opacity: 0,
-        duration: 2,
-        delay: 0.3
-      });
+      gsap.fromTo(
+        ".box",
+        {
+          y: 50,
+          opacity: 0,
+          duration: 2,
+          delay: 0.3,
+        },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 2,
+          delay: 0.3,
+        },
+      );
     },
     { scope: containerRef },
   );
 
-  // useEffect(() => {
-  //   const intervalId = setInterval(() => {
-  //     gsap.fromTo(containerRef.current, {
-  //       y: 50,
-  //       opacity: 0,
-  //       duration: 2,
-  //     },
-  //     {
-  //       y: 0,
-  //       opacity: 1,
-  //       duration: 2,
-  //     });
-  //   }, 5000);
+  useEffect(() => {
+    const animation = gsap.timeline({ repeat: -1, repeatDelay: 2 });
+    animation.fromTo(
+      ".box",{ y: 0},{
+        y: 70,
+        duration: 2,
+        ease: "power1.inOut", 
+        stagger: 0.1,
+        delay:5
+      }
+    ).fromTo(".box",{ y: 70 },{
+      y: 0,
+      duration: 2,
+      ease: "power1.inOut", 
+      stagger: 0.1,
+      
+    })
 
-  //   return () => clearInterval(intervalId);
-  // }, []);
+    return () => {
+      animation.kill(); 
+    };
+  }, []);
 
   return (
     <div ref={containerRef}>

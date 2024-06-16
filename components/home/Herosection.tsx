@@ -12,10 +12,10 @@ export default function Hero() {
   const linkButtonClass =
     "flex h-full w-full items-center justify-around border-[1px] border-black py-2 bg-white opacity-70 hover:opacity-90 active:scale-[0.9] duration-200 ";
   return (
-    <section className="flex min-h-screen flex-col items-center overflow-hidden bg-black text-white">
+    <section className="flex min-h-screen flex-col items-center overflow-hidden bg-black text-white relative">
       <Navbar />
-      <p className="text-5xl font-medium">Snippet2Sketch</p>
-      <div className="relative h-[77.5vh] w-full overflow-hidden ">
+      <p className="text-7xl font-medium absolute left-[50%] top-[20%] translate-x-[-50%]">Snippet2Sketch</p>
+      <div className="relative h-[87vh] w-full overflow-hidden ">
       
       <Cube
           height={"h-[500px]"}
@@ -24,7 +24,7 @@ export default function Hero() {
           topbarheight={"h-[70px]"}
           wtop=""
           bottom="bottom-[24rem]"
-          left="left-[2%]"
+          left="left-[5vw]"
           right=""
         />
         <MedCube
@@ -34,7 +34,7 @@ export default function Hero() {
           topbarheight={"h-[90px]"}
           wtop=""
           bottom="bottom-[19rem]"
-          left="left-[-4%]"
+          left="left-[-2vw]"
           right=""
         />
         <BigCube
@@ -44,7 +44,7 @@ export default function Hero() {
           topbarheight={"h-[120px]"}
           wtop=""
           bottom="bottom-[24.5rem]"
-          left="left-[13%]"
+          left="left-[16vw]"
           right=""
         />
         <MedCube
@@ -54,7 +54,7 @@ export default function Hero() {
           topbarheight={"h-[90px]"}
           wtop=""
           bottom="bottom-[21rem]"
-          left="left-[30%]"
+          left="left-[31vw]"
           right=""
         />
         <Cube
@@ -64,7 +64,7 @@ export default function Hero() {
           topbarheight={"h-[70px]"}
           wtop=""
           bottom="bottom-[17rem]"
-          left="left-[9%]"
+          left="left-[10vw]"
           right=""
         />
         <MedCube
@@ -74,7 +74,7 @@ export default function Hero() {
           topbarheight={"h-[90px]"}
           wtop=""
           bottom="bottom-[11rem]"
-          left="left-[1%]"
+          left="left-[2vw]"
           right=""
         />
         <Cube
@@ -84,7 +84,7 @@ export default function Hero() {
           topbarheight={"h-[70px]"}
           wtop=""
           bottom="bottom-[15rem]"
-          left="left-[19.5%]"
+          left="left-[20.5vw]"
           right=""
         />
         <Cube
@@ -94,7 +94,7 @@ export default function Hero() {
           topbarheight={"h-[70px]"}
           wtop=""
           bottom="bottom-[9rem]"
-          left="left-[10%]"
+          left="left-[11vw]"
           right=""
         />
         <Cube
@@ -104,7 +104,7 @@ export default function Hero() {
           topbarheight={"h-[70px]"}
           wtop=""
           bottom="bottom-[13rem]"
-          left="left-[29%]"
+          left="left-[30vw]"
           right=""
         />
         <MedCube
@@ -115,7 +115,7 @@ export default function Hero() {
           wtop=""
           bottom="bottom-[26rem]"
           left=""
-          right="right-[32%]"
+          right="right-[32vw]"
         />
         <MedCube
           height={"h-[500px]"}
@@ -124,7 +124,7 @@ export default function Hero() {
           topbarheight={"h-[90px]"}
           wtop=""
           bottom="bottom-[22rem]"
-          left="left-[53%]"
+          left="left-[52vw]"
           right=""
         />
         <MedCube
@@ -134,7 +134,7 @@ export default function Hero() {
           topbarheight={"h-[90px]"}
           wtop=""
           bottom="bottom-[19rem]"
-          left="left-[41.5%]"
+          left="left-[41.5vw]"
           right=""
         />
 
@@ -145,7 +145,7 @@ export default function Hero() {
           topbarheight={"h-[120px]"}
           wtop=""
           bottom="bottom-[9rem]"
-          left="left-[44.2%]"
+          left="left-[44.2vw]"
           right=""
         />
 
@@ -157,7 +157,7 @@ export default function Hero() {
           wtop=""
           bottom="bottom-[20rem]"
           left=""
-          right="right-[30.5rem]"
+          right="right-[40vw]"
         />
         <Cube
           height={"h-[300px]"}
@@ -167,7 +167,7 @@ export default function Hero() {
           wtop=""
           bottom="bottom-[12rem]"
           left=""
-          right="right-[33rem]"
+          right="right-[41vw]"
         />
         <BigCube
           height={"h-[300px]"}
@@ -177,7 +177,7 @@ export default function Hero() {
           wtop=""
           bottom="bottom-[25rem]"
           left=""
-          right="right-[4rem]"
+          right="right-[7vw]"
         />
         <BigCube
           height={"h-[300px]"}
@@ -187,7 +187,7 @@ export default function Hero() {
           wtop=""
           bottom="bottom-[21.5rem]"
           left=""
-          right="right-[17rem]"
+          right="right-[22vw]"
         />
 
         <Cube
@@ -198,7 +198,7 @@ export default function Hero() {
           wtop=""
           bottom="bottom-[15rem]"
           left=""
-          right="right-[24.5rem]"
+          right="right-[30vw]"
         />
         
         <BigCube
@@ -209,7 +209,7 @@ export default function Hero() {
           wtop=""
           bottom="bottom-[14.5rem]"
           left=""
-          right="right-[8rem]"
+          right="right-[10vw]"
         />
         
         <Cube
@@ -220,7 +220,7 @@ export default function Hero() {
           wtop=""
           bottom="bottom-[9rem]"
           left=""
-          right="right-[18rem]"
+          right="right-[23vw]"
         />
         
       <div className="absolute bottom-0 flex w-full text-3xl font-thin text-black">

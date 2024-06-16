@@ -1,5 +1,5 @@
 "use client";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 gsap.registerPlugin(useGSAP);
@@ -29,7 +29,7 @@ export default function BigCube({
 
   useGSAP(
     () => {
-      gsap.from(".box", {
+      gsap.from(".Bigbox", {
         y:50,
         opacity: 0,
         duration: 2,
@@ -39,10 +39,34 @@ export default function BigCube({
     { scope: containerRef },
   );
 
+  useEffect(() => {
+    const animation = gsap.timeline({ repeat: -1, repeatDelay: 2 });
+    animation.fromTo(
+      ".Bigbox",{ y: 0},{
+        y: 70,
+        duration: 2,
+        ease: "power1.inOut", 
+        stagger: 0.1,
+        delay:4.8
+      }
+    ).fromTo(".Bigbox",{ y: 70 },{
+      y: 0,
+      duration: 2,
+      ease: "power1.inOut", 
+      stagger: 0.1,
+      
+    })
+
+    return () => {
+      animation.kill(); 
+    };
+  }, []);
+
+
   return (
     <div ref={containerRef}>
     <div
-      className={`box absolute ${bottom} ${wtop} ${left} ${right} `
+      className={`Bigbox absolute ${bottom} ${wtop} ${left} ${right} `
       }
     >
       <div

@@ -7,10 +7,10 @@ export default function Home() {
     <main>
       {/* ------------------------------- Hero Section  ------------------------------- */}
       <Herosection/>
-
       {/* ------------------------------- AboutUs Section  ------------------------------- */}
-      <AboutSection/>
 
+      <AboutSection/>
+      
       {/* ------------------------------- Visualize Section  ------------------------------- */}
       <Visualizesection/>
     </main>

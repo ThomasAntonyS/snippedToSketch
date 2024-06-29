@@ -1,77 +1,148 @@
 'use client'
-import React, { useRef, useState } from 'react'
-import { Button } from "@/components/ui/button";
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
+import React, { useRef, useState } from 'react';
+import { Button } from "@/components/ui/button"; // Importing Button component from the UI library
+import gsap from "gsap"; // Importing GSAP for animations
+import { useGSAP } from "@gsap/react"; // Importing useGSAP for context-safe GSAP animations
+import './LinkedListFunction.css'
+import { FaLongArrowAltRight } from "react-icons/fa";
+import AboutLinklist from './AboutLinkedlist';
+
+// Defining the ListItem interface
+interface ListItem {
+  id: number;
+  value: number;
+}
 
 const LinkListFunction = () => {
+    const boxClassVariable = "flex h-14 w-14 items-center justify-center rounded-lg text-white text-xl font-medium drop-shadow-lg ";
 
-    const boxClassVariable = "flex h-14 w-14 items-center justify-center rounded-lg bg-rose-500 text-xl font-medium drop-shadow-lg ";
-    
-    const [defaultText, setDefaultText] = useState(true);
-    const container = useRef<HTMLDivElement>(null);
-    const [noOfList, setNoOfList] = useState<number[]>([]);
-    const [createNumber, setCreateNumber] = useState<number | string>(5);
-    const [appendNumber, setAppendNumber] = useState<number | string>(6);
-    const [appendNumber1, setAppendNumber1] = useState<number | string>(0);
+    const [defaultText, setDefaultText] = useState(true); // State for showing default text
+    const container = useRef<HTMLDivElement>(null); // Ref for the container element
+    const [noOfList, setNoOfList] = useState<ListItem[]>([]); // State for the list of items
+    const [createNumber, setCreateNumber] = useState<number | string>(5); // State for number of items to create
+    const [appendNumber, setAppendNumber] = useState<number | string>(6); // State for number to append
+    const [appendNumber1, setAppendNumber1] = useState<number | string>(0); // State for number to append at the start
+    const [insertNumber, setInsertNumber] = useState<number | string>(3); // State for number to insert
+    const [insertPosition, setInsertPosition] = useState<number | string>(4); // State for position to insert
+    const [deletePosition, setDeletePosition] = useState<number | string>(); // State for position to delete
+    const [searchNumber, setSearchNumber] = useState<number | string>(); // State for number to search
 
+
+    // Handlers for input changes
     const createInputHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setCreateNumber(Number(event.currentTarget.value));
+        const value = Math.min(Number(event.currentTarget.value), 100);
+        setCreateNumber(value);
     };
-   
-    const generateDefaultList = () => { // Corrected function
-        const newNumbers: number[] = [];
+
+    const appendInputHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const value = Math.min(Number(event.currentTarget.value), 100);
+        setAppendNumber(value);
+    };
+
+    const appendInputHandler1 = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const value = Math.min(Number(event.currentTarget.value), 100);
+        setAppendNumber1(value);
+    };
+
+    const insertInputHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const value = Math.min(Number(event.currentTarget.value), 100);
+        setInsertNumber(value);
+    };
+
+    const insertPositionHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const value = Math.min(Number(event.currentTarget.value), 100);
+        setInsertPosition(value);
+    };
+
+    const deletePositionHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const value = Math.min(Number(event.currentTarget.value), 100);
+        setDeletePosition(value);
+    };
+
+    const searchInputHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const value = Math.min(Number(event.currentTarget.value), 100);
+        setSearchNumber(value);
+    };
+
+    // Generate a default list of unique random numbers
+    const generateDefaultList = () => {
+        const newNumbers: ListItem[] = [];
         const targetLength = Number(createNumber);
 
-        if (isNaN(targetLength)) { // Type guard
+        if (isNaN(targetLength)) {
             console.error("createNumber is not a valid number");
             return;
         }
 
+        let id = 0;
         while (newNumbers.length < targetLength) {
-            let randomNum = Math.round(Math.random() * 10);
-            if (!newNumbers.includes(randomNum)) {
-                newNumbers.push(randomNum);
+            let randomNum = Math.round(Math.random() * 100);
+            if (!newNumbers.find(item => item.value === randomNum)) {
+                newNumbers.push({ id: id++, value: randomNum });
             }
         }
+
         setNoOfList(newNumbers);
         setDefaultText(false);
+
+        // Animate new list creation
+        const onCreateButton = contextSafe(() => {
+            setTimeout(() => {
+                gsap.from(".box", {
+                    y: -500,
+                    stagger: 0.1,
+                    scale: 0,
+                    visibility: 0,
+                    ease: "back.inOut",
+                    duration: 1,
+                });
+            }, 10);
+        });
+        onCreateButton();
     };
 
-       // this is for the front end 
+    // Append an element to the front of the list
     const appendOneElementFirst = () => {
-        setNoOfList((prev) => [Number(appendNumber1), ...prev]);
+        const newNumber = Number(appendNumber1);
+        const newItem = { id: Date.now(), value: newNumber };
+
+        setNoOfList((prev) => {
+            if (prev.length >= 100) return prev;
+            return [newItem, ...prev];
+        });
         setDefaultText(false);
 
         const onAppendFirst = contextSafe(() => {
-          setTimeout(() => {
-            gsap.from(`.box${appendNumber1}`, {
-                background:"blue",
-                x: -100,
-                stagger: 0.1,
-                visibility: 0,
-                ease: "back.Out",
-                duration: 1,
-                delay: 0.1,
-            });
-        }, 10);
-    });
-    onAppendFirst();
+            setTimeout(() => {
+                gsap.from(`.box${newItem.id}`, {
+                    background: "blue",
+                    x: -50,
+                    stagger: 0.1,
+                    visibility: 0,
+                    ease: "back.Out",
+                    duration: 1,
+                    delay: 0.1,
+                });
+            }, 10);
+        });
+        onAppendFirst();
     };
 
-    const appendInputHandler1 = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setAppendNumber1(Number(event.currentTarget.value));
-    };
-
-    // this is for the rare end 
+    // Append an element to the end of the list
     const appendOneElement = () => {
-        setNoOfList((prev) => [...prev, Number(appendNumber)]);
+        const newNumber = Number(appendNumber);
+        const newItem = { id: Date.now(), value: newNumber };
+
+        setNoOfList((prev) => {
+            if (prev.length >= 100) return prev;
+            return [...prev, newItem];
+        });
         setDefaultText(false);
 
         const onAppendButton = contextSafe(() => {
             setTimeout(() => {
-                gsap.from(`.box${appendNumber}`, {
-                    background:'purple',
+                gsap.from(`.box${newItem.id}`, {
+                    background: 'purple',
                     x: 100,
                     stagger: 0.1,
                     visibility: 0,
@@ -81,112 +152,316 @@ const LinkListFunction = () => {
                 });
             }, 10);
         });
-
         onAppendButton();
     };
 
-    const appendInputHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setAppendNumber(Number(event.currentTarget.value));
+    // Insert an element at a specific position
+    const insertOneElement = () => {
+        const newNumber = Number(insertNumber);
+        const newItem = { id: Date.now(), value: newNumber };
+        const position = Math.min(Number(insertPosition), noOfList.length);
+
+        setNoOfList((prev) => {
+            if (prev.length >= 100) return prev;
+            const updatedList = [...prev];
+            updatedList.splice(position, 0, newItem);
+            return updatedList;
+        });
+        setDefaultText(false);
+
+        const onInsertButton = contextSafe(() => {
+            setTimeout(() => {
+                gsap.from(`.box${newItem.id}`, {
+                    background: 'green',
+                    x: 0,
+                    y: -50,
+                    stagger: 0.1,
+                    visibility: 0,
+                    ease: "back.Out",
+                    duration: 1,
+                    delay: 0.1,
+                });
+            }, 10);
+        });
+        onInsertButton();
     };
 
-    const { contextSafe } = useGSAP();
+    // Delete an element with animation
+    const deleteElement = (index: number, direction: 'left' | 'right' | 'up') => {
+        const removedElement = noOfList[index];
+        let animationProps: any = {
+            visibility: 0,
+            ease: "back.inOut",
+            duration: 1,
+            onComplete: () => {
+                setNoOfList((prev) => {
+                    const updatedList = [...prev];
+                    updatedList.splice(index, 1);
+                    return updatedList;
+                });
+                setDefaultText(false);
+                gsap.to(".box", {
+                    x: 0,
+                    y: 0,
+                    stagger: 0.1,
+                    ease: "back.inOut",
+                    duration: 1,
+                });
+            }
+        };
 
-    const onCreateButton = contextSafe(() => {
-        generateDefaultList();
-        setTimeout(() => {
-            gsap.from(".box", {
-                y: -50,
-                stagger: 0.2,
-                scale: 0,
-                visibility: 0,
-                ease: "back.inOut",
-                duration: 1,
+        if (direction === 'left') {
+            animationProps = { ...animationProps, x: -100 };
+        }
+        if (direction === 'right') {
+            animationProps = { ...animationProps, x: 100 };
+        }
+        if (direction === 'up') {
+            animationProps = { ...animationProps, y: -100 };
+        }
+
+        gsap.to(`.box${removedElement.id}`, animationProps);
+    };
+
+    // Delete element from the front of the list
+    const deleteFromFront = () => {
+        deleteElement(0, 'left');
+    };
+
+    // Delete element from the middle of the list
+    const deleteFromMiddle = () => {
+        const position = Math.min(Number(deletePosition), noOfList.length - 1);
+        deleteElement(position, 'up');
+    };
+
+    // Delete element from the end of the list
+    const deleteFromRear = () => {
+        deleteElement(noOfList.length - 1, 'right');
+    };
+
+    // Search for an element and animate if found
+    const searchElement = () => {
+        const searchNum = Number(searchNumber);
+        const foundItem = noOfList.find(item => item.value === searchNum);
+        if (foundItem) {
+            gsap.to(`.box${foundItem.id}`, {
+                background: 'yellow',
+                scale: 1.5,
+                yoyo: true,
+                repeat: 1,
+                duration: 0.8,
             });
-        }, 10);
-    });
+        } else {
+            console.log("Element not found in the list");
+        }
+    };
+
+    // Function to safely wrap GSAP animations with context
+    function contextSafe(callback: () => void) {
+        return () => {
+            if (container.current) {
+                callback();
+            }
+        };
+    }
 
     return (
         <>
-            <section
-                ref={container}
-                className="mx-8 flex grid-rows-2 flex-col items-center justify-center bg-white"
-            >
-                {defaultText && (
-                    <span className='text-2xl font-medium'>
-                        Click an Operation to view the LinkList
-                    </span>
-                )}
-                <div className="flex">
-                    {noOfList.map((ele, i) => (
-                        <div key={i}>
-                            <div className="border-black border-2 p-1 m-4 rounded-md">
-                                <div className={boxClassVariable + " box " + "box" + ele}>
-                                    {ele.toString()}
-                                </div>
-                            </div>
-                            <div className="text-lg font-medium text-center">{i}</div>
-                        </div>
-                    ))}
-                </div>
-            </section>
+        <AboutLinklist/>
+        <section
+        ref={container}
+        className=" shadow-[0_10px_20px_rgba(240,_46,_170,_0.7)]
+        mx-4 md:mx-8 flex justify-between rounded-lg bg-black border-2 border-solid border-white"
+        >
 
-            <section className='bg-orange-200 p-2'>
-                <div className="flex justify-evenly">
-                    <div className="flex flex-col items-center gap-3">
-                        <Button
-                            className="w-[5rem] hover:scale-100 p-2"
-                            onClick={onCreateButton}
-                        >
-                            Create
-                        </Button>
-                        <span className="text-md w-[85%] font-medium">
-                            To Create A Linked List <br /> Choose a number
-                            <input
-                                className="w-5 p-1"
-                                onChange={createInputHandler}
-                                value={createNumber}
-                                type="number"
-                            />
-                        </span>
+        <div className="border-white border-r-2 border-solid bg-black text-white rounded-sm">
+            <p className=" justify-center flex border-y-2 border-solid p-1 text-xl border-white">Operation</p>
+            <div className="flex items-center m-2">
+            <div className="flex w-full justify-between items-center">
+                <span className="text-md font-medium flex items-center">
+                Create a size N =
+                <input
+                    className="w-14 p-1 ml-2 text-center rounded-lg border-2 border-solid border-green-50 bg-black text-white"
+                    onChange={createInputHandler}
+                    value={createNumber}
+                    type="number"
+                    min="1"
+                    max="100"
+                />
+                </span>
+                <Button className="md:w-[5rem] hover:scale-100 p-2 ml-2" onClick={generateDefaultList}>
+                Create
+                </Button>
+            </div>
+            </div>
+
+            <div className="flex flex-col items-center gap-3 m-2">
+            <div className="flex w-full justify-between items-center">
+                <span className="text-md font-medium flex items-center">
+                Insert to the list
+                <input
+                    className="w-14 p-1 ml-2 text-center rounded-lg border-2 border-solid border-green-50 bg-black text-white"
+                    onChange={appendInputHandler1}
+                    value={appendNumber1}
+                    type="number"
+                    min="1"
+                    max="100"
+                />
+                </span>
+                <Button className="md:w-[7rem] hover:scale-100 p-2 ml-2" onClick={appendOneElementFirst}>
+                front
+                </Button>
+            </div>
+            </div>
+
+            <div className="flex flex-col items-center gap-3 m-2">
+            <div className="flex w-full justify-between items-center">
+                <span className="text-md font-medium flex items-center">
+                Insert in rare of the list 
+                <input
+                    className="w-14 p-1 ml-2 text-center rounded-lg border-2 border-solid border-green-50 bg-black text-white"
+                    onChange={appendInputHandler}
+                    value={appendNumber}
+                    type="number"
+                    min="1"
+                    max="100"
+                />
+                </span>
+                <Button className="md:w-[7rem] hover:scale-100 p-2 ml-2" onClick={appendOneElement}>
+                rear
+                </Button>
+            </div>
+            </div>
+
+            <div className="flex flex-col items-center gap-3 m-2">
+            <div className="flex w-full justify-between items-center">
+                <span className="text-md font-medium flex items-center">
+                Insert
+                <input
+                    className="w-14 p-1 ml-2 text-center rounded-lg border-2 border-solid border-green-50 bg-black text-white"
+                    onChange={insertInputHandler}
+                    value={insertNumber}
+                    type="number"
+                    min="1"
+                    max="100"
+                />
+                <span className="ml-2">at Index </span>
+                <input
+                    className="w-14 p-1 ml-2 text-center rounded-lg border-2 border-solid border-green-50 bg-black text-white"
+                    onChange={insertPositionHandler}
+                    value={insertPosition}
+                    type="number"
+                    min="0"
+                    max="100"
+                />
+                </span>
+                <Button className="md:w-[7rem] hover:scale-100 p-2 ml-2" onClick={insertOneElement}>
+                middle
+                </Button>
+            </div>
+            </div>
+
+            <div className="flex flex-col items-center gap-3 m-2">
+            <div className="flex w-full justify-between items-center">
+                <span className="text-md font-medium flex items-center">
+                Delete element at =
+                </span>
+                <div className="flex gap-2 ml-2">
+                <Button className="md:w-[7rem] hover:scale-100 p-2" onClick={deleteFromFront}>
+                    Front
+                </Button>
+                <Button className="md:w-[7rem] hover:scale-100 p-2" onClick={deleteFromRear}>
+                    Rear
+                </Button>
+                </div>
+            </div>
+            </div>
+
+            <div className="flex flex-col items-center gap-3 m-2">
+            <div className="flex w-full justify-between items-center">
+                <span className="text-md font-medium flex items-center">
+                Delete element at Index 
+                <input
+                    className="w-14 p-1 ml-2 text-center rounded-lg border-2 border-solid border-green-50 bg-black text-white"
+                    onChange={deletePositionHandler}
+                    value={deletePosition}
+                    type="number"
+                    min="0"
+                    max="100"
+                />
+                </span>
+                <div className="flex flex-col gap-2 ml-2">
+                <Button className="md:w-[7rem] hover:scale-100 p-2" onClick={deleteFromMiddle}>
+                    Middle
+                </Button>
+                </div>
+            </div>
+            </div>
+
+            <div className="flex flex-col items-center gap-3 m-2">
+            <div className="flex w-full justify-between items-center">
+                <span className="text-md font-medium flex items-center">
+                Number to Search
+                <input
+                    className="w-14 p-1 ml-2 text-center rounded-lg border-2 border-solid border-green-50 bg-black text-white"
+                    onChange={searchInputHandler}
+                    value={searchNumber}
+                    type="number"
+                    min="1"
+                    max="100"
+                />
+                </span>
+                <Button className="md:w-[7rem] hover:scale-100 p-2 ml-2" onClick={searchElement}>
+                Search
+                </Button>
+            </div>
+            </div>
+        </div>
+
+        <div className="flex flex-wrap justify-center border-2 items-center flex-grow">
+            {defaultText && (
+            <span className="flex items-center  justify-center text-2xl font-medium text-center text-white">
+                Click an Operation to view the Linked List
+            </span>
+            )}
+            <div className="horizontal-scroll-container">
+                {noOfList.map((ele, i) => (
+                    <div key={ele.id} className="relative scrollerLinklist m-4">
+                        {i < noOfList.length - 1 && <FaLongArrowAltRight className="Linkedlist" />}
+                        <div className="relative border-gray-400 border-4 p-1 rounded-md">
+                            <div className={boxClassVariable + " box " + "box" + ele.id}>
+                                {ele.value.toString()}
+                            </div>
+                            {i === 0 && (
+                                <div className="absolute left-1/2 transform -translate-x-1/2 -bottom-6 text-xl text-green-500 text-center">Head</div>
+                            )}
+                            {i === noOfList.length - 1 && (
+                                <div className="absolute left-1/2 transform -translate-x-1/2 -bottom-6 text-xl text-red-500 text-center">Tail</div>
+                            )}
+                        </div>
+                        <div className="text-lg font-medium text-center">{i}</div>
                     </div>
-                    <div className="flex flex-col items-center gap-3">
-                        <Button
-                            className="w-[7rem] hover:scale-100"
-                            onClick={appendOneElementFirst}
-                        >
-                            Insert in front
-                        </Button>
-                        <span className="text-md w-[60%] font-medium">
-                            Click to insert a number in the list
-                            <input
-                                className="w-5 p-1"
-                                onChange={appendInputHandler1}
-                                value={appendNumber1}
-                                type="number"
-                            />
-                        </span>
-                    </div>
-                    <div className="flex flex-col items-center gap-3">
-                        <Button
-                            className="w-[7rem] hover:scale-100"
-                            onClick={appendOneElement}
-                        >
-                            Insert in rear
-                        </Button>
-                        <span className="text-md w-[60%] font-medium">
-                            Click to insert a number in the list
-                            <input
-                                className="w-5 p-1"
-                                onChange={appendInputHandler}
-                                value={appendNumber}
-                                type="number"
-                            />
-                        </span>
-                    </div>
+                ))}
+            </div>
+        </div>
+        </section>
+
+
+            <section className=' mt-8 bg-green-400 bg-opacity-70 p-4 flex justify-evenly'>
+                <div className=" border-2 border-gray-400  bg-black text-white rounded-xl w-[500px] h-[500px] gap-4 m-3
+                shadow-[0_20px_50px_rgba(0,0,0,1)]
+                ">
+                    <p className=' border-y-2 border-white p-2 flex justify-center text-2xl '>Code</p>
+                </div>
+                <div className=" bg-black border-2 border-gray-400 text-white rounded-xl w-[500px] h-[500px] gap-4 m-3
+                shadow-[0_20px_50px_rgba(0,0,0,1)]
+                ">
+                    <p className=' border-y-2 border-white p-2 flex justify-center text-2xl '>Logger</p>
                 </div>
             </section>
+                    
         </>
-    )
+    );
 }
 
 export default LinkListFunction;

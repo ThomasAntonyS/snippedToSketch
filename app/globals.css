@@ -1,6 +1,4 @@
 
-
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -68,6 +66,47 @@
       --ring: 212.7 26.8% 83.9%;
     }
   }
-
+  .about_container{
+    height: 80vh;
+    width: 100%;
+    background-color: black;
+    overflow-x: hidden;
+  }
+  #circle{
+    height: 5.5vh;
+    width: 5vw;
+    background-color: white;
+    clip-path: circle();
+  }
+  .about_content{
+    position: relative;
+    display: flex;
+    height: 50vh;
+    width: 75vw;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+  
+    .about_text p{
+      font-size: 1.35rem;
+      color: white;
+      margin: 45px 0px 0px 70px;
+      text-align: justify;
+    }
+    .about_picture{
+      
+    }
+  }
+  .about_content_button{
+    margin-top: 3%;
+    margin-left: 17%;
+    border-radius: 20px;
+  }
+  .visualise_container{
+    height: 90vh;
+    width: 100%;
+    background-color: #00AD6F;
+    overflow-x: hidden;
+  }
 
 

@@ -6,7 +6,6 @@ import SameCube from '@/components/objects/SameCube';
 import { GoArrowUpRight } from "react-icons/go";
 import Link from 'next/link';
 import './LinkedListFunction.css';
-import { WavyBackground } from '@/components/ui/wavy-background';
 
 
 const AboutLinklist = () => {
@@ -24,7 +23,6 @@ const AboutLinklist = () => {
   return (
     <>
     <section className='  h-screen w-screen bg-black flex justify-center items-center relative'>
-    <WavyBackground/>
     <div className='rounded-md h-[250px] w-[620px] bg-black bg-opacity-50 relative flex flex-col items-center justify-center p-4'>
           <h2 className='text-white  font-bold'>Linked List</h2>
           <p className='text-white text-center mt-5'>

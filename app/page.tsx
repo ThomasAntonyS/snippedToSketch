@@ -5,10 +5,8 @@ export default function Home() {
     <main>
       {/* ------------------------------- Hero Section  ------------------------------- */}
       <Herosection/>
-
       {/* ------------------------------- AboutUs Section  ------------------------------- */}
       <div className="AboutUs_Section"></div>
-
       {/* ------------------------------- Visualize Section  ------------------------------- */}
       <div className="Visualize_Section"></div>
     </main>
